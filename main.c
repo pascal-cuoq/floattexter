@@ -2,9 +2,15 @@
 #include <string.h> /* strlen, strncpy */
 #include "config.h" /* digits */
 
-void print_float(char *str);
+/* This prints 4 bytes as a float
+ * Relies on digits and from config.h
+ */
+void print_float(char *bytes)
+{
+	printf("%.*e", digits, *(float*)bytes);
+}
 
-/* NOTE: This assumes 4 byte floats */
+/* TODO: This assumes 4 byte floats */
 int main(int argc, char *argv[])
 {
 	/* If we get no string, print help and ditch */
@@ -14,7 +20,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	/* This is our string */
+	/* Input string */
 	char *string = argv[1];
 	int   length = strlen(string);
 	
@@ -30,7 +36,7 @@ int main(int argc, char *argv[])
 	}
 	
 	/* Print the leftovers we missed, includes null-terminator by design
-	 * TODO: Make this less shit somehow
+	 * TODO: Make this less bad somehow
 	 */
 	if (length % 4)
 	{
@@ -43,6 +49,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
+		/* Relies on 0.0f containing a null byte */
 		printf("\t0\n");
 	}
 
@@ -50,12 +57,4 @@ int main(int argc, char *argv[])
 	printf("};\n\nint main()\n{\n\tputs((char*)text);\n}\n");
 
 	return 0;
-}
-
-/* This prints 4 bytes as a float
- * Relies on digits and from config.h
- */
-void print_float(char *str)
-{
-	printf("%.*e", digits, *(float*)str);
 }
