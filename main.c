@@ -5,7 +5,7 @@
 /* This prints 4 bytes as a float
  * Relies on digits and from config.h
  */
-void print_float(char *bytes)
+void print_as_float(char *bytes)
 {
 	printf("%.*e", digits, *(float*)bytes);
 }
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < length; i += 4)
 	{	
 		printf("\t");
-		print_float(&string[i]);
+		print_as_float(&string[i]);
 		printf(",\n");
 	}
 	
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 		int index = length - (length % 4);
 		strncpy(copy, &string[index], 4);
 		printf("\t");
-		print_float(copy);
+		print_as_float(copy);
 		printf("\n");
 	}
 	else
