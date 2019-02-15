@@ -2,7 +2,7 @@
 #include <string.h> /* strlen, strncpy */
 #include "config.h" /* digits */
 
-/* This prints 4 bytes as a float
+/* This prints bytes as a float
  * Relies on digits and from config.h
  */
 void print_as_float(char *bytes)
@@ -10,7 +10,7 @@ void print_as_float(char *bytes)
 	printf("%.*e", digits, *(float*)bytes);
 }
 
-/* TODO: This assumes 4 byte floats */
+/* TODO: This assumes sizeof(float) byte floats */
 int main(int argc, char *argv[])
 {
 	/* If we get no string, print help and ditch */
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	printf("#include <stdio.h>\n\nstatic float text[] =\n{\n");
 
 	/* Loop to print the floats */
-	for (int i = 0; i < length; i += 4)
+	for (int i = 0; i < length; i += sizeof(float))
 	{	
 		printf("\t");
 		print_as_float(&string[i]);
@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
 	/* Print the leftovers we missed, includes null-terminator by design
 	 * TODO: Make this less bad somehow
 	 */
-	if (length % 4)
+	if (length % sizeof(float))
 	{
-		char copy[4] = { 0 };
-		int index = length - (length % 4);
-		strncpy(copy, &string[index], 4);
+		char copy[sizeof(float)] = { 0 };
+		int index = length - (length % sizeof(float));
+		strncpy(copy, &string[index], sizeof(float));
 		printf("\t");
 		print_as_float(copy);
 		printf("\n");
