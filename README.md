@@ -14,6 +14,10 @@ Then just hit `make` ¯\\\_(ツ)\_/¯
 
 `floattexter <string>` will print the generated program to stdout, so just redirect or pipe it to where you need it
 
+## Example
+
+![Example](https://cdn.discordapp.com/attachments/506367803473788930/546036604846735360/Lf02KqNV.png)
+
 ## FAQ
 
 Q: Why?
