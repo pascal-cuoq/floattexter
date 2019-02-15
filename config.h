@@ -6,9 +6,4 @@
  */
 static int digits = 9;
 
-/* Platform endianness
- * Set this to 1 if your platform uses big endian byte order instead
- */
-static int big_endian = 0;
-
 #endif /* CONFIG_H */

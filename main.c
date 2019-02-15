@@ -1,9 +1,8 @@
 #include <stdio.h>  /* printf */
 #include <string.h> /* strlen, strncpy */
-#include "config.h" /* digits, big_endian */
+#include "config.h" /* digits */
 
 void print_float(char *str);
-void reverse_chars(char *bytes);
 
 /* NOTE: This assumes 4 byte floats */
 int main(int argc, char *argv[])
@@ -30,7 +29,9 @@ int main(int argc, char *argv[])
 		printf(",\n");
 	}
 	
-	/* Print the leftovers we missed, includes null-terminator by design */
+	/* Print the leftovers we missed, includes null-terminator by design
+	 * TODO: Make this less shit somehow
+	 */
 	if (length % 4)
 	{
 		char copy[4] = { 0 };
@@ -52,29 +53,9 @@ int main(int argc, char *argv[])
 }
 
 /* This prints 4 bytes as a float
- * Relies on digits and big_endian from config.h
+ * Relies on digits and from config.h
  */
 void print_float(char *str)
 {
-	if (big_endian)
-	{
-		/* In-place modification */
-		reverse_chars(str);
-	}
-
 	printf("%.*e", digits, *(float*)str);
-}
-
-/* This reverses the first 4 characters in the string */
-void reverse_chars(char *bytes)
-{
-	/* 1st pair (out of place swap) */
-	char b = bytes[0];
-	bytes[0] = bytes[3];
-	bytes[3] = b;
-
-	/* 2nd pair (out of place swap) */
-	b = bytes[1];
-	bytes[1] = bytes[2];
-	bytes[2] = b;
 }
