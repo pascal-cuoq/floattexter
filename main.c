@@ -10,7 +10,6 @@ void print_as_float(char *bytes)
 	printf("%.*e", digits, *(float*)bytes);
 }
 
-/* TODO: This assumes sizeof(float) byte floats */
 int main(int argc, char *argv[])
 {
 	/* If we get no string, print help and ditch */
@@ -35,7 +34,7 @@ int main(int argc, char *argv[])
 		printf(",\n");
 	}
 	
-	/* Print the leftovers we missed, includes null-terminator by design
+	/* Print the leftovers we missed, includes null-terminator.
 	 * TODO: Make this less bad somehow
 	 */
 	if (length % sizeof(float))
@@ -49,7 +48,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		/* Relies on 0.0f containing a null byte */
+		/* TODO: Relies on 0.0f containing a null byte, might not be true in some universe. */
 		printf("\t0\n");
 	}
 
