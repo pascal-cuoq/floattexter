@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	printf("#include <stdio.h>\n\nstatic float text[] =\n{\n");
 
 	/* Loop to print the floats */
-	for (int i = 0; i < length; i += sizeof(float))
+	for (int i = 0; i + 3 < length; i += sizeof(float))
 	{	
 		printf("\t");
 		print_as_float(&string[i]);
